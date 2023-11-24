@@ -15,8 +15,7 @@
     <thead>
       <tr>
         <th>BRANCHNO</th>
-        <th>STREET</th>
-        <th>CITY</th>
+        <th>ADDRESS</th>
         <th>POST CODE</th>
       </tr>
     </thead>
@@ -28,14 +27,11 @@
             <%= branch[0] %>
           </td>
           <td>
-            <%= branch[1] %>
+            <%= branch[1] %>,
               <%= branch[2] %>
           </td>
           <td>
             <%= branch[3] %>
-          </td>
-          <td>
-            <%= branch[4] %>
           </td>
         </tr>
         <% }); %>
@@ -53,8 +49,6 @@
     <input type="text" id="postcode" name="postcode"><br>
     <input type="submit" value="Save"><br>
   </form>
-
-  <button onclick="location.href='/branch-main-menu'">Go Back</button>
 </div>
 
 <script src="/scripts/editor.js"></script>
