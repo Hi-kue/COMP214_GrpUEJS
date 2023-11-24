@@ -20,6 +20,4 @@ express.response.render = function(view, locals, callback) {
     } else {
         originalRender.call(this, 'login', locals, callback);
     }
-    // call the original render function
-    originalRender.call(this, view, locals, callback);
 };

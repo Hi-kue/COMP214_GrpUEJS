@@ -11,10 +11,10 @@
   <table>
     <thead>
       <tr>
-        <th>clientNO</th>
+        <th>CLIENTNO</th>
         <th>FULL NAME</th>
-        <th>POSITION</th>
-        <th>SEX</th>
+        <th>ADDRESS</th>
+        <th>EMAIL</th>
       </tr>
     </thead>
     <tbody id="data_table">
@@ -26,13 +26,14 @@
           </td>
           <td>
             <%= client[1] %>
-              <%= client[2] %>
+            <%= client[2] %>
           </td>
           <td>
-            <%= client[3] %>
+            <%= client[4] %>,
+            <%= client[5] %>
           </td>
           <td>
-            <%= client[4] %>
+            <%= client[6] %>
           </td>
         </tr>
         <% }); %>
