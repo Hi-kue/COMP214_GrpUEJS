@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+
+<title>Branch Editor</title>
+
+<h1>Branch Editor</h1>
+
+<%- include('../../logoutbutton') %>
+<!-- go-back Button -->
+<form action="/branch-main-menu" method="GET">
+  <button type="submit">Go Back</button>
+</form>
+
+<div id="div">
+  <table>
+    <thead>
+      <tr>
+        <th>branchNO</th>
+        <th>FULL NAME</th>
+        <th>POSITION</th>
+        <th>SEX</th>
+      </tr>
+    </thead>
+    <tbody id="data_table">
+      <% branch_list.forEach(function(branch) { %>
+        <tr id="<%= branch[0] %>" class="<%= (branchno == branch[0]) ? 'current' : '' %>"
+          onclick="loadRecordFromDataTableToEditor('<%= JSON.stringify(branch) %>');">
+          <td>
+            <%= branch[0] %>
+          </td>
+          <td>
+            <%= branch[1] %>
+              <%= branch[2] %>
+          </td>
+          <td>
+            <%= branch[3] %>
+          </td>
+          <td>
+            <%= branch[4] %>
+          </td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+
+  <form action="/save-branch-edits" method="post" id="editor" name="editor">
+    <label for="branchno">branch No:</label><br>
+    <input type="text" id="branchno" name="branchno" value="<%= branchno %>" readonly><br>
+    <label for="street">Street:</label><br>
+    <input type="text" id="street" name="street"><br>
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city"><br>
+    <label for="postcode">Post Code:</label><br>
+    <input type="text" id="postcode" name="postcode"><br>
+    <input type="submit" value="Save"><br>
+  </form>
+
+  <button onclick="location.href='/branch-main-menu'">Go Back</button>
+</div>
+
+<script src="/scripts/editor.js"></script>

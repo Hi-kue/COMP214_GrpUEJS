@@ -1,0 +1,23 @@
+<title>Branch Finder</title>
+
+
+<h1>Branch Finder</h1>
+
+<%- include('../../logoutbutton') %>
+<!-- go-back Button -->
+<form action="/branch-main-menu" method="GET">
+    <button type="submit">Go Back</button>
+</form>
+
+<form action="/find-branch" method="post">
+    <label for="branchno">Branch No:</label><br>
+    <input type="text" id="branchno" name="branchno" value="<%= typeof(branch) == 'string' ? branch : branch[0] %>" ><br>
+    <% if (typeof(branch) != 'string' ) { %>
+        <label><%= branch[1] %></label>,
+        <label><%= branch[2] %></label>
+        <label><%= branch[3] %></label><br>
+    <% } else if (branch != '' ) { %>
+        <label>Branch Not Found</label><br>
+    <% } %>
+    <input type="submit" value="Find">
+</form>

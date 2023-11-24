@@ -1,0 +1,19 @@
+<title>Register</title>
+<h1>Register</h1>
+<form action="/register" method="post">
+  <h1><%= typeof userFieldMessage !== 'undefined' ? userFieldMessage : '' %></h1>
+  <div>
+    <label>Username:</label>
+    <input type="text" name="username"/>
+  </div>
+  <div>
+    <label>Password:</label>
+    <input type="password" name="password"/>
+  </div>
+  <div>
+    <input type="submit" value="Register"/>
+  </div>
+</form>
+<button onclick="location.href='/login'" type="button">Log In</button>
+
+  

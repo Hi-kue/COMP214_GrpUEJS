@@ -1,0 +1,75 @@
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+
+<title>Staff Editor</title>
+
+<h1>Staff Editor</h1>
+
+<%- include('../../logoutbutton') %>
+
+<!-- go-back Button -->
+<form action="/staff-main-menu" method="GET">
+  <button type="submit">Go Back</button>
+</form>
+
+<div id="div">
+  <table>
+    <thead>
+      <tr>
+        <th>STAFFNO</th>
+        <th>FULL NAME</th>
+        <th>POSITION</th>
+        <th>SEX</th>
+      </tr>
+    </thead>
+    <tbody id="data_table">
+      <% staff_list.forEach(function(staff) { %>
+        <tr id="<%= staff[0] %>" class="<%= (staffno == staff[0]) ? 'current' : '' %>"
+          onclick="loadRecordFromDataTableToEditor('<%= JSON.stringify(staff) %>', '<%= JSON.stringify([6]) %>','<%= JSON.stringify({formatDateValue:[[6],{}]}) %>');">
+          <td>
+            <%= staff[0] %>
+          </td>
+          <td>
+            <%= staff[1] %>
+              <%= staff[2] %>
+          </td>
+          <td>
+            <%= staff[3] %>
+          </td>
+          <td>
+            <%= staff[4] %>
+          </td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+
+  <form action="/save-staff-edits" method="post" id="editor" name="editor">
+    <label for="staffno">Staff No:</label><br>
+    <input type="text" id="staffno" name="staffno" value="<%# staffno %>" readonly><br>
+    <label for="fname">First Name:</label><br>
+    <input type="text" id="fname" name="fname" disabled><br>
+    <label for="lname">Last Name:</label><br>
+    <input type="text" id="lname" name="lname" disabled><br>
+    <label for="position">Position:</label><br>
+    <input type="text" id="position" name="position" disabled><br>
+    <label for="sex">Sex:</label><br>
+    <input type="text" id="sex" name="sex" disabled><br>
+    <label for="branchno">BranchNo:</label><br>
+    <input type="text" id="branchno" name="branchno" disabled><br>
+    <label for="dob">DOB:</label><br>
+    <input type="date" id="dob" name="dob" disabled><br>
+    <label for="salary">Salary:</label><br>
+    <input type="number" id="salary" name="salary" onchange="onChange('salary')"><br>
+    <label for="telephone">Telephone:</label><br>
+    <input type="tel" id="telephone" name="telephone" onchange="onChange('telephone')"><br>
+    <label for="mobile">Mobile:</label><br>
+    <input type="tel" id="mobile" name="mobile" onchange="onChange('mobile')"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" onchange="onChange('email')"><br>
+    <input type="submit" value="Save"><br>
+  </form>
+
+  <button onclick="location.href='/staff-main-menu'">Go Back</button>
+</div>
+
+<script src="/scripts/editor.js"></script>

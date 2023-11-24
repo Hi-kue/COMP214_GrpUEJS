@@ -1,0 +1,49 @@
+<title>Add Client</title>
+
+
+<h1>Add Client</h1>
+
+<%- include('../../logoutbutton') %>
+
+<!-- go-back Button -->
+<form action="/client-main-menu" method="GET">
+    <button type="submit">Go Back</button>
+</form>
+
+<form action="/add-client" method="post">
+    <label for="clientno">Client No:</label><br>
+    <input type="text" id="clientno" name="clientno" value="<%= clientno %>" readonly><br>
+    
+    <label for="fname">First Name:</label><br>
+    <input type="text" id="fname" name="fname" required><br>
+    
+    <label for="lname">Last Name:</label><br>
+    <input type="text" id="lname" name="lname" required><br>
+    
+    <label for="telno">Tel:</label><br>
+    <input type="text" id="telno" name="telno"><br>
+
+    <label for="street">Street:</label><br>
+    <input type="text" id="street" name="street" required><br>
+
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city" required><br>
+
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+
+    <label for="preftype">Pref. Type:</label><br>
+    <select id="preftype" name="preftype">
+        <option value="Flat">Flat</option>
+        <option value="House">House</option>
+    </select><br>
+
+    <label for="maxrent">Max Rent:</label><br>
+    <input type="number" id="maxrent" name="maxrent"><br>
+
+    <% if (client) { %>
+        <label>Client Added: <%= client %></label><br>
+    <% }%>
+
+    <input type="submit" value="Add">
+</form>

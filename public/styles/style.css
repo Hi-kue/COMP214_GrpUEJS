@@ -1,0 +1,56 @@
+div{
+    border: 1px solid black;
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+    padding: 10px;
+}
+table {
+    border: 1px solid black;
+    width: fit-content;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: fit-content;
+    padding: 1%;
+    margin: 1%;
+}
+tbody{
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: 100px;
+    /* Adjust as needed */
+    overflow-y: auto;
+}
+
+th,
+td {
+    border: 1px solid black;
+    width: 120px;
+    text-align: center;
+}
+
+#editor{
+    border: 1px solid black;
+    width: 96%;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    height: fit-content;
+    padding: 1%;
+    margin: 1%;
+}
+.current{
+    border: 1px solid lightsalmon;
+    background-color:darkcyan ;
+}
+.changed {
+    background-color: brown;
+}
+
+input::placeholder {
+    color: grey;
+    font-style: italic;
+}

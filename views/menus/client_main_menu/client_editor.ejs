@@ -1,0 +1,70 @@
+<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<title>Client Editor</title>
+<h1>Client Editor</h1>
+<%- include('../../logoutbutton') %>
+<!-- go-back Button -->
+<form action="/client-main-menu" method="GET">
+  <button type="submit">Go Back</button>
+</form>
+
+<div id="div">
+  <table>
+    <thead>
+      <tr>
+        <th>clientNO</th>
+        <th>FULL NAME</th>
+        <th>POSITION</th>
+        <th>SEX</th>
+      </tr>
+    </thead>
+    <tbody id="data_table">
+      <% client_list.forEach(function(client) { %>
+        <tr id="<%= client[0] %>" class="<%= (clientno == client[0]) ? 'current' : '' %>"
+          onclick="loadRecordFromDataTableToEditor('<%= JSON.stringify(client) %>');">
+          <td>
+            <%= client[0] %>
+          </td>
+          <td>
+            <%= client[1] %>
+              <%= client[2] %>
+          </td>
+          <td>
+            <%= client[3] %>
+          </td>
+          <td>
+            <%= client[4] %>
+          </td>
+        </tr>
+        <% }); %>
+    </tbody>
+  </table>
+
+  <form action="/save-client-edits" method="post" id="editor" name="editor">
+    <label for="clientno">Client No:</label><br>
+    <input type="text" id="clientno" name="clientno" value="<%= clientno %>" readonly><br>
+    <label for="fname">First Name:</label><br>
+    <input type="text" id="fname" name="fname" disabled><br>
+    <label for="lname">Last Name:</label><br>
+    <input type="text" id="lname" name="lname" disabled><br>
+    <label for="telno">Tel:</label><br>
+    <input type="text" id="telno" name="telno"><br>
+    <label for="street">Street:</label><br>
+    <input type="text" id="street" name="street"><br>
+    <label for="city">City:</label><br>
+    <input type="text" id="city" name="city"><br>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
+    <label for="preftype">Pref. Type:</label><br>
+    <select id="preftype" name="preftype">
+        <option value="Flat">Flat</option>
+        <option value="House">House</option>
+    </select><br>
+    <label for="maxrent">Max Rent:</label><br>
+    <input type="number" id="maxrent" name="maxrent"><br>
+    <input type="submit" value="Save"><br>
+  </form>
+
+  <button onclick="location.href='/client-main-menu'">Go Back</button>
+</div>
+
+<script src="/scripts/editor.js"></script>

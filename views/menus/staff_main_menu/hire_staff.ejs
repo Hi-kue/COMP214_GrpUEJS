@@ -1,0 +1,48 @@
+<title>Hire Staff</title>
+
+
+<h1>Hire Staff</h1>
+
+<%- include('../../logoutbutton') %>
+<!-- go-back Button -->
+<form action="/staff-main-menu" method="GET">
+    <button type="submit">Go Back</button>
+</form>
+
+<form action="/hire-staff" method="post">
+    <label for="staffno">Staff No:</label><br>
+    <input type="text" id="staffno" name="staffno" value="<%= staffno %>" readonly><br>
+    <label for="fname">First Name:</label><br>
+    <input type="text" id="fname" name="fname"><br>
+    <label for="lname">Last Name:</label><br>
+    <input type="text" id="lname" name="lname"><br>
+    <label for="position">Position:</label><br>
+    <input type="text" id="position" name="position"><br>
+    <label for="sex">Sex:</label><br>
+    <select id="sex" name="sex">
+        <option value="F">F</option>
+        <option value="M">M</option>
+    </select><br>
+    <label for="branchno">BranchNo:</label><br>
+    <select id="branchno" name="branchno">
+        <% brancho_list.forEach(function(branchno) { %>
+            <option value="<%= branchno %>">
+                <%= branchno %>
+            </option>
+            <% }); %>
+    </select><br>
+    <label for="dob">DOB:</label><br>
+    <input type="date" id="dob" name="dob" required><br>
+    <label for="salary">Salary:</label><br>
+    <input type="number" id="salary" name="salary"><br>
+    <label for="telephone">Telephone:</label><br>
+    <input type="tel" id="telephone" name="telephone"><br>
+    <label for="mobile">Mobile:</label><br>
+    <input type="tel" id="mobile" name="mobile"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email"><br>
+    <% if (staff) { %>
+        <label>Staff Added: <%= staff %></label><br>
+    <% }%>
+    <input type="submit" value="Hire">
+</form>

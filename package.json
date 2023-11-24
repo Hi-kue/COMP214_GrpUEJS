@@ -1,0 +1,42 @@
+{
+  "name": "oracle-db-dream-home-beta-application",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./server.js"
+  },
+  "engines": {
+    "node": "^18.00.0",
+    "npm": "^9.0.0"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0",
+    "bcryptjs": "^2.4.3",
+    "bootstrap": "^4.5.0",
+    "connect-flash": "^0.1.1",
+    "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "moment": "^2.29.4",
+    "oracledb": "^6.2.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.7",
+    "@types/passport": "^1.0.12",
+    "@types/passport-local": "^1.0.35"
+  },
+  "description": "oracle interaction assignment application 11/23/2023",
+  "main": "index.js",
+  "author": "mohammad aljelmawi",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maljelma/prj_oracledb.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maljelma/prj_oracledb/issues"
+  },
+  "homepage": "https://github.com/maljelma/prj_oracledb#readme"
+}
