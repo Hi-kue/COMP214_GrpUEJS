@@ -28,7 +28,7 @@
     "@types/passport-local": "^1.0.35"
   },
   "description": "oracle interaction assignment application 11/23/2023",
-  "main": "index.js",
+  "main": "server.js",
   "author": "mohammad aljelmawi",
   "license": "ISC",
   "repository": {
