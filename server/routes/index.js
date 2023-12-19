@@ -1,128 +1,84 @@
 const express = require('express');
 const router = express.Router();
-const passport = require('passport');
 const oracledb = require('oracledb');
 const openConnection = require('../config/database');
 const db = require('../config/dbfunctions');
-const crypto = require('crypto');
-const moment = require('moment');
 
-function generateUniqueId(prefix) {
-  return prefix + crypto.randomBytes(3).toString('hex');
-}
-
-// --------------------- log-in ---------------------
-router.get('/login', (req, res) => res.render('login'));
-
-router.post('/login',
-  function (req, res, next) {
-    passport.authenticate('local', function (err, user, info) {
-      if (err) {
-        console.log(err);
-        return next(err);
-      }
-      if (!user) {
-        console.log(info.message);
-        return res.redirect('/login');
-      }
-      req.logIn(user, function (err) {
-        if (err) {
-          console.log(err);
-          return next(err);
-        }
-        console.log('Login successful');
-        return res.redirect('/home');
-      });
-    })(req, res, next);
-  }
-);
-
-// --------------------- log-out ---------------------
-router.post('/logout', (req, res) => {
-  passport.user = null;
-  req.logout();
-  res.redirect('/login');
-});
-
-// --------------------- register ---------------------
-router.get('/register', (req, res) => res.render('register'));
-
-router.post('/register', async (req, res) => {
-  let connection;
-
-  try {
-    connection = await openConnection();
-
-    const result = await connection.execute(
-      `BEGIN :ret := prj_add_user_if_not_exists(:username, :password); END;`,
-      {
-        ret: { dir: oracledb.BIND_OUT, type: oracledb.NUMBER },
-        username: req.body.username, 
-        password: req.body.password   // replace with hashed password
-      },
-      { autoCommit: true }
-    );
-
-    // user not created 
-    if (result.outBinds.ret === 0) {
-      console.log('user exists!');
-      res.render('register', { userFieldMessage: 'User exsits' });
-    } else if (result.outBinds.ret === -1) {
-      console.log('Error Creating User!');
-    } else {
-      res.redirect('/login');
-    }
-  } catch (err) {
-    console.error(err);
-    res.redirect('/register');
-  } finally {
-    if (connection) {
-      try {
-        await connection.close();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-});
-
-// --------------------- home ---------------------
+/**
+ * ROUTE :: /home
+ * Renders the home ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.get('/home', (req, res) => {
-  res.render('home');
+  res.render('home', { pageName: 'Home' });
 });
+
+/**
+ * ROUTE :: /
+ * Renders the home ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.get('/', (req, res) => {
-  res.render('home');
+  res.render('home', { pageName: 'Home' });
 });
 
 
-// menus
-// --------------------- staff-menu ---------------------
+/**
+ * ROUTE :: /staff-main-menu
+ * Renders the staff_main_menu ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.get('/staff-main-menu', (req, res) => {
-  res.render('./menus/staff_main_menu');
+  res.render('./menus/staff_main_menu', { pageName: 'Staff Main Menu' });
 });
-// --------------------- branch-menu ---------------------
+
+/**
+ * ROUTE :: /client-main-menu
+ * Renders the client_main_menu ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.get('/branch-main-menu', (req, res) => {
-  res.render('./menus/branch_main_menu');
+  res.render('./menus/branch_main_menu', { pageName: 'Branch Main Menu' });
 });
-// --------------------- client-menu ---------------------
+
+/**
+ * ROUTE :: /client-main-menu
+ * Renders the client_main_menu ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.get('/client-main-menu', (req, res) => {
-  res.render('./menus/client_main_menu');
+  res.render('./menus/client_main_menu', { pageName: 'Client Main Menu' });
 });
 
-// --------------------- add staff ---------------------
-router.get('/hire-staff', (req, res) => {
-  let staff = req.query.staff;
-  (async () => {
-    let brancho_list = await db.executeProcedureGetArray(`get_branch_address_list(:cursor)`,
-      { cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } },
-      {});
-    res.render('./menus/staff_main_menu/hire_staff', { staffno: generateUniqueId('S_'), brancho_list: brancho_list,staff:staff });
-  })();
+/**
+ * ROUTE :: /hire-staff
+ * Renders the staff_hire ejs page.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
+router.get('/hire-staff', async (req, res) => {
+  const staff = req.query.staff;
 
+  let brancho_list = await db.executeProcedureGetArray(`get_branch_address_list(:cursor)`,
+    { cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } },
+    {});
+
+  res.render('./menus/staff_main_menu/hire_staff', { staffno: generateUniqueId('S_'), brancho_list: brancho_list, staff:staff });
 });
+
+/**
+ * ROUTE :: /hire-staff
+ * Renders the staff_hire ejs page and calls the staff_hire_sp procedure.
+ * @param {Object} req - request object.
+ * @param {Object} res - response object.
+ */
 router.post('/hire-staff', (req, res) => {
-  // Call the Staff_hire_sp procedure with the form data
-  db.executeProcedure('Staff_hire_sp(:staffno,:fname, :lname, :position, :sex, :dob, :salary, :branchno, :telephone, :mobile, :email)',
+  db.executeProcedure('Staff_hire_sp(:staffno, :fname, :lname, :position, :sex, :dob, :salary, :branchno, :telephone, :mobile, :email)',
     {
       staffno: req.body.staffno,
       fname: req.body.fname,
@@ -137,17 +93,18 @@ router.post('/hire-staff', (req, res) => {
       email: req.body.email
     },
     { autoCommit: true });
-  // Redirect the user back to the form
-  res.redirect('/hire-staff?staff='+req.body.fname+' ' + req.body.lname+'. position: '+ req.body.position+'. gender: '+ req.body.sex +'. dob: '+req.body.dob+'. salary: '+ req.body.salary+'. branch: '+req.body.branchno+'. tel: '+ req.body.telephone+'. mobile: '+ req.body.mobile+'. email: '+ req.body.email);
+
+    res.redirect(`/hire-staff?staff=${req.body.fname} ${req.body.lname}. position: ${req.body.position}. gender: ${req.body.sex}. dob: ${req.body.dob}. salary: ${req.body.salary}. branch: ${req.body.branchno}. tel: ${req.body.telephone}. mobile: ${req.body.mobile}. email: ${req.body.email}`);
 });
 
 // --------------------- edit staff ---------------------
 router.get('/staff-editor', async (req, res) => {
-  let staffno = req.query.staffno;
+  const staffno = req.query.staffno;
   let connection;
 
   try {
     connection = await openConnection();
+
     const result = await connection.execute(
       `BEGIN get_staff_list(:cursor); END;`,
       { cursor: { dir: oracledb.BIND_OUT, type: oracledb.CURSOR } }
@@ -159,10 +116,12 @@ router.get('/staff-editor', async (req, res) => {
 
     while ((row = await resultSet.getRow())) {
       staff_list.push(row);
+
     }
 
     await resultSet.close();
     res.render('./menus/staff_main_menu/staff_editor', { staff_list: staff_list, staffno: staffno });
+
   } catch (err) {
     console.error(err);
   } finally {

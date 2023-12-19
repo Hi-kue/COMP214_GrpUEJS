@@ -112,5 +112,5 @@ function findCurrentAndDisplayRecord() {
         }
     }
 }
-// display current sellected record [call on this script-file load]
+// display current selected record [call on this script-file load]
 findCurrentAndDisplayRecord();

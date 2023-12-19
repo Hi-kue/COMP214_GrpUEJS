@@ -1,48 +1,47 @@
-<link rel="stylesheet" type="text/css" href="/styles/style.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head.ejs' { pageName: 'Staff Editor' }) %>
+</head>
 
-<title>Staff Editor</title>
+<body>
+  <%- include('partials/nav.ejs') %>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                  <th scope="col" class="px-6 py-3">STAFFNO</th>
+                  <th scope="col" class="px-6 py-3">FULL NAME</th>
+                  <th scope="col" class="px-6 py-3">POSITION</th>
+                  <th scope="col" class="px-6 py-3">SEX</th>
+                  <th scope="col" class="px-6 py-3"><span class="sr-only">Edit</span></th>
+              </tr>
+          </thead>
+          <tbody>
+              <% staff_list.forEach(function(staff) { %>
+              <tr id="<%= staff[0] %>" class="<%= (staffno == staff[0]) ? 'current' : '' %>"
+                  onclick="loadRecordFromDataTableToEditor('<%= JSON.stringify(staff) %>', '<%= JSON.stringify([6]) %>','<%= JSON.stringify({formatDateValue:[[6],{}]}) %>');">
+                  <td class="px-6 py-4 whitespace-nowrap"><%= staff[0] %></td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= staff[1] %> <%= staff[2] %></td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= staff[3] %></td>
+                  <td class="px-6 py-4 whitespace-nowrap"><%= staff[4] %></td>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                      <a href="/staff-editor/<%= staff[0] %>" class="text-indigo-600 hover:text-indigo-900 hover:underline">Edit</a>
+                  </td>
+              </tr>
+              <% }); %>
+          </tbody>
+      </table>
+  </div>
 
-<h1>Staff Editor</h1>
 
-<%- include('../../logoutbutton') %>
 
-<!-- go-back Button -->
-<form action="/staff-main-menu" method="GET">
-  <button type="submit">Go Back</button>
-</form>
 
-<div id="div">
-  <table>
-    <thead>
-      <tr>
-        <th>STAFFNO</th>
-        <th>FULL NAME</th>
-        <th>POSITION</th>
-        <th>SEX</th>
-      </tr>
-    </thead>
-    <tbody id="data_table">
-      <% staff_list.forEach(function(staff) { %>
-        <tr id="<%= staff[0] %>" class="<%= (staffno == staff[0]) ? 'current' : '' %>"
-          onclick="loadRecordFromDataTableToEditor('<%= JSON.stringify(staff) %>', '<%= JSON.stringify([6]) %>','<%= JSON.stringify({formatDateValue:[[6],{}]}) %>');">
-          <td>
-            <%= staff[0] %>
-          </td>
-          <td>
-            <%= staff[1] %>
-              <%= staff[2] %>
-          </td>
-          <td>
-            <%= staff[3] %>
-          </td>
-          <td>
-            <%= staff[4] %>
-          </td>
-        </tr>
-        <% }); %>
-    </tbody>
-  </table>
+  <%- include('partials/footer.ejs') %>  
+</body>
+</html>
 
+<!-- TODO: EDIT THIS -->
   <form action="/save-staff-edits" method="post" id="editor" name="editor">
     <label for="staffno">Staff No:</label><br>
     <input type="text" id="staffno" name="staffno" value="<%# staffno %>" readonly><br>
@@ -69,5 +68,3 @@
     <input type="submit" value="Save"><br>
   </form>
 </div>
-
-<script src="/scripts/editor.js"></script>

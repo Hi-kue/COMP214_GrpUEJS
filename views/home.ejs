@@ -1,20 +1,102 @@
-<title>Home</title>
-<h1>Home</h1>
+<!DOCTYPE html>
+<html lang="en">
 
-<%- include('logoutbutton') %>
+<head>
+  <%- include('partials/head.ejs') %>
+</head>
 
-<form action="/staff-main-menu" method="get">
-  <button type="submit">Staff Main Menu</button>
-</form>
+<body>
+  <%- include('partials/nav.ejs') %>
+    <section class="flex flex-col items-center justify-center min-h-screen text-center">
+      <h1 class="text-2xl font-bold mb-2">Dream Home Application</h1>
+      <h2 class="text-xl mb-4">Please Select an Option to Get Started</h2>
+    
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- TODO: COMPLETE CARD DESCRIPTION -->
+        <%- include('partials/card.ejs', 
+          {
+            title: 'Staff', 
+            description: 'Staff related information', 
+            link: '/staff-main-menu' 
+          })
+        %>
+        <%- include('partials/card.ejs', 
+          {
+            title: 'Branch' , 
+            description: 'Branch related information', 
+            link: '/branch-main-menu' 
+          })
+        %>
+        <%- include('partials/card.ejs', 
+          {
+            title: 'Client', 
+            description: 'Client related information', 
+            link: '/client-main-menu' 
+          }) 
+        %>
+      </div>
+    </section>
 
-<form action="/branch-main-menu" method="get">
-  <button type="submit">Branch Main Menu</button>
-</form>
+    <section class="container my-24 mx-auto md:px-6">
+        <h2 class="mb-16 text-3xl font-bold">
+          Understanding the Menus
+        </h2>
+        <!-- MENU: BRANCH MAIN MENU -->
+        <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
+          <div class="mb-12 md:mb-0">
+            <div class="mb-6 inline-block rounded-md bg-primary-100 p-4 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" class="h-6 w-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+              </svg>
+            </div>
+            <h5 class="mb-4 text-lg font-bold">Branch Main Menu</h5>
+            <p class="text-neutral-500 dark:text-neutral-300">
+              This menu and its submenus are used to manage branches and their
+              related information. After selecting this menu, you will be given
+              the option to select from the following submenus: <strong>Branch Editor</strong>
+              and <strong>Branch Finder</strong>. Please select this menu to get started.
+            </p>
+          </div>
+          <!-- MENU: STAFF MAIN MENU -->
+          <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
+            <div class="mb-12 md:mb-0">
+              <div class="mb-6 inline-block rounded-md bg-primary-100 p-4 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                  stroke="currentColor" class="h-6 w-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+                </svg>
+              </div>
+              <h5 class="mb-4 text-lg font-bold">Staff Main Menu</h5>
+              <p class="text-neutral-500 dark:text-neutral-300">
+                This menu and its submenus are used to manage staff and their
+                related information. After selecting this menu, you will be given
+                the option to select from the following submenus: <strong>Staff Hire</strong>
+                and <strong>Staff Finder</strong>. Please select this menu to get started.
+              </p>
+            </div>
+            <!-- MENU: CLIENT MAIN MENU -->
+            <div class="grid gap-x-6 md:grid-cols-3 lg:gap-x-12">
+              <div class="mb-12 md:mb-0">
+                <div class="mb-6 inline-block rounded-md bg-primary-100 p-4 text-primary">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                    stroke="currentColor" class="h-6 w-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
+                  </svg>
+                </div>
+                <h5 class="mb-4 text-lg font-bold">Client Main Menu</h5>
+                <p class="text-neutral-500 dark:text-neutral-300">
+                  This menu and its submenus are used to manage clients and their
+                  related information. After selecting this menu, you will be given
+                  the option to select from the following submenus: <strong>Client Editor</strong>
+                  and <strong>Client Register</strong>. Please select this menu to get started.
+                </p>
+              </div>
+    </section>
+  <%- include('partials/footer.ejs') %>
+</body>
 
-<form action="/client-main-menu" method="get">
-  <button type="submit">Client Main Menu</button>
-</form>
-
-<form action="" method="get">
-  <button type="submit" disabled>Go Back</button>
-</form>
+</html>

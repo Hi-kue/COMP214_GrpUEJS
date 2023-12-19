@@ -1,13 +1,14 @@
-<title>Hire Staff</title>
-
-
-<h1>Hire Staff</h1>
-
-<%- include('../../logoutbutton') %>
-<!-- go-back Button -->
-<form action="/staff-main-menu" method="GET">
-    <button type="submit">Go Back</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head.ejs' { pageName: 'Hire Staff' }) %>
+</head>
+<body>
+    <%- include('partials/nav.ejs') %>
+    <!-- TODO: REFACTOR THIS FILE -->
+    <%- include('partials/footer.ejs') %>
+</body>
+</html>
 
 <form action="/hire-staff" method="post">
     <label for="staffno">Staff No:</label><br>
